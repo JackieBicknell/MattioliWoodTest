@@ -1,0 +1,148 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+* {
+    box-sizing:border-box;
+}
+
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.Submissionbtn {
+    width: 200px;
+}
+
+.card {
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background: antiquewhite;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+.formheader {
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 20px 40px 20px 0px;
+    font-size: 24px;
+    font-family: cursive;
+    text-align: left;
+}
+
+.form {
+    text-align: left;
+}
+
+.form-group {
+    padding: 10px;
+    width: 50%;
+    margin: 0;
+    text-align: left;
+}
+
+.fa-user-circle {
+    font-size: 20px;
+    color: darkred;
+    position: absolute;
+    left: 510px;
+}
+
+#forenameIcon {
+    top: 150px;
+}
+
+#surnameCheckIcon {
+    top: 240px;
+}
+
+
+#AddressForm {
+    visibility: hidden;
+    display: none;
+}
+
+.Submissionbtn{
+    position: absolute;
+    left: 150px;
+    margin: 20px;
+    background-color: brown;
+    color: white;
+}
+
+.card {
+    height: auto;
+    display: flex;
+}
+
+.imgLogo {
+    position: absolute;
+    background-color: red;
+    width: 500px;
+    height: 400px;
+    margin: 10px;
+}
