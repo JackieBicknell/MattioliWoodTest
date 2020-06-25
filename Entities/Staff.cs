@@ -5,8 +5,7 @@ using System.Text;
 namespace Entities
 {
    public class Staff
-    {
-        
+    {  
         public int Id { get; set; }
         public string Forename { get; set; }
 

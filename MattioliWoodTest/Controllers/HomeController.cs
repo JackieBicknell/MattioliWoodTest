@@ -15,54 +15,104 @@ namespace MattioliWoodTest.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private StaffLogic _staffLogic = new StaffLogic();
+        private UserLogic _userLogic = new UserLogic();
 
-        public HomeController(ILogger<HomeController> logger)
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        public HomeController()
         {
-            _logger = logger;
         }
 
         public IActionResult Index()
         {
+            List<Staff> staffList = _userLogic.GetAllStaffRecords();
             return View();
         }
-
-        public string AddStaff(string subject)
+        public IActionResult SaveUser(string forename, string surname, DateTime dateOfBirth, string userType, string firstLineAddress, string secondLineAddress, string postcode)
         {
-            string staff = _staffLogic.AddStaff();
-            return staff;
-        }
-
-
-        public string SaveUser(string forename, string surname, DateTime dateOfBirth, string UserType, string Address1, string Address2, string postcode)
-        {
-            string hello = "hi";
-
-            switch(UserType)
+            HomeViewModel homeViewModel = new HomeViewModel();
+            if (CheckInputDoesNotAlreadyExist(forename, surname, userType))
             {
-                case "staff":
-                    SaveStaff(forename, surname, dateOfBirth);
-                    break;
-                case "client":
-                    break;
+                return UserExistsMessageToView(forename, surname, homeViewModel);
             }
-            return hello;
+            else
+            {
+                switch (userType)
+                {
+                    case "Staff":
+                        SaveStaff(forename, surname, dateOfBirth);
+                        break;
+                    case "Client":
+                        SaveClient(forename, surname, dateOfBirth, firstLineAddress, secondLineAddress, postcode);
+                        break;
+                    default:
+                        homeViewModel.ErrorMsg = "Something has gone wrong, please try again";
+                        ViewBag.ErrorMsg = "Something has gone wrong, please try again";
+                        return View("Index", homeViewModel);
+                        throw new NotImplementedException();
+                }
+                
+            }
+            return UserSuccessfullySavedInDBMsg(forename, surname, homeViewModel);
         }
 
 
+        private IActionResult UserExistsMessageToView(string forename, string surname, HomeViewModel homeViewModel)
+        {
+            string fullname = forename + " " + surname;
+            ViewBag.UserExistsMsg = $"The details entered for '{fullname}' already exists";
+            return View("Index", homeViewModel);
+        }
+
+        private IActionResult UserSuccessfullySavedInDBMsg(string forename, string surname, HomeViewModel homeViewModel)
+        {
+            string fullname = forename + " " + surname;
+            ViewBag.SuccessfullyAddedMsg = $"{fullname} has been successfully added";
+            return View("Index", homeViewModel);
+        }
 
         public string SaveStaff(string forename, string surname, DateTime dateOfBirth)
         {
-
-           
-
-            Staff currentStaff = new Staff();
-            currentStaff.Forename = forename;
-            currentStaff.Surname = surname;
-            currentStaff.DateOfBirth = dateOfBirth;
-
-
+            Staff newStaff = CreateStaffObj(forename, surname, dateOfBirth);
+            _userLogic.AddStaffToDataBase(newStaff);
             return "staff has been saved in database";
+        }
+
+        public string SaveClient(string forename, string surname, DateTime dateOfBirth, string firstLineAddress, string secondLineAddress, string postcode)
+        {
+            Client newClient = CreateClientObj(forename, surname, dateOfBirth, firstLineAddress, secondLineAddress, postcode);
+            _userLogic.AddClientToDataBase(newClient);
+            return "staff has been saved in database";
+        }
+
+        public bool CheckInputDoesNotAlreadyExist(string forename, string surname, string userType)
+        {
+            bool doesUserExist = _userLogic.CheckUserExists(forename, surname, userType);
+            return doesUserExist;
+        }
+
+        private static Staff CreateStaffObj(string forename, string surname, DateTime dateOfBirth)
+        {
+            Staff newStaff = new Staff();
+            newStaff.Forename = forename;
+            newStaff.Surname = surname;
+            newStaff.DateOfBirth = dateOfBirth;
+            return newStaff;
+        }
+
+        private static Client CreateClientObj(string forename, string surname, DateTime dateOfBirth, string firstLineAddress, string secondLineAddress, string postcode)
+        {
+            Client newClient = new Client();
+            newClient.Forename = forename;
+            newClient.Surname = surname;
+            newClient.DateOfBirth = dateOfBirth;
+            newClient.AddressLine1 = firstLineAddress;
+            newClient.AddressLine2 = secondLineAddress;
+            newClient.PostCode = postcode;
+            return newClient;
         }
 
         public IActionResult Privacy()

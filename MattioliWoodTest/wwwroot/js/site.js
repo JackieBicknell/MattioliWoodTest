@@ -16,16 +16,27 @@ UserType.addEventListener('change', e => {
 function checkInputs() {
 	// trim to remove the whitespaces
 	const userTypeValue = UserType.value;
-
-
 	if (userTypeValue === 'Client') {
-		document.getElementById('form').append = '<div class="form-group"> <label for="exampleFormControlInput1" > Date Of Birth</label ><input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Date Of Birth" required></div>'
 		addressForm.style.visibility = 'visible';
 		addressForm.style.display = 'block';
+
+		const addressLine1Input = document.getElementById('firstLineAddress');
+		addressLine1Input.setAttribute("required", "");
+
+
+		const postcodeInput = document.getElementById('Postcode');
+		postcodeInput.setAttribute("required", "");
 		
 	} else {
 		addressForm.style.visibility = 'hidden';
 		addressForm.style.display = 'none';
+
+		const addressLine1Input = document.getElementById('Address1');
+		addressLine1Input.removeAttribute("required"); 
+		const postcodeInput = document.getElementById('Postcode');
+		postcodeInput.removeAttribute("required"); 
+
+	
 	}
 
 

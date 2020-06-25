@@ -2,57 +2,101 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model MattioliWoodTest.Models.HomeViewModel;
+
     <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-
-        <form asp-action="AddStaff" method="post">
-            Choose your favorite subject:
-            <button name="subject" type="submit" value="staff">HTML</button>
-        </form>
-
         <div class="card">
             <form asp-action="SaveUser" id="form" method="post">
                 <header class="formheader">Create User</header>
 
+                @if(ViewBag.ErrorMsg != null)
+                {
+                    <p class="alert-danger">@Html.Raw(ViewBag.ErrorMsg)</p>
+                }
+                @if (ViewBag.UserExistsMsg != null)
+                {
+                    <p class="existsMsg">@Html.Raw(ViewBag.UserExistsMsg)</p>
+                }
+
+                @if (ViewBag.SuccessfullyAddedMsg != null)
+                {
+                    <p class="text-success">@Html.Raw(ViewBag.SuccessfullyAddedMsg)</p>
+                }
                 <img class="imgLogo" src="~/img/MattioliLogo.jpg" alt="Mattioli Wood Logo">
 
                 <div class="form-group">
-                    <label for="forename">Forename</label>
-                    <input name="forename" type="text" class="form-control" id="forename" placeholder="Enter Forename" required>
-                    <i id="forenameIcon" class="fa fa-user-circle"></i>
+                    <label class="formlabel" for="forename">Forename *</label>
+                    <input name="forename" type="text" class="form-control" id="forename" placeholder="Enter Forename" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="surname">Surname</label>
-                    <input name="surname" type="text" class="form-control" id="surname" placeholder="Enter Surname" required>
-                    <i id="surnameCheckIcon" class="fa fa-user-circle"></i>
+                    <label class="formlabel" for="surname">Surname *</label>
+                    <input name="surname" type="text" class="form-control" id="surname" placeholder="Enter Surname" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="dateOfBirth">Date Of Birth</label>
+                    <label class="formlabel" for="dateOfBirth">Date Of Birth *</label>
                     <input name="dateOfBirth" type="date" class="form-control" id="dateOfBirth" placeholder="Enter Date Of Birth" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="UserType">Type Of User</label>
-                    <select  name="userType" class="form-control" id="UserType">
-                        <option value="staff">Staff</option>
-                        <option value="client">Client</option>
+                    <label class="formlabel" for="UserType">Type Of User</label>
+                    <select name="userType" class="form-control" id="UserType">
+                        <option>Staff</option>
+                        <option>Client</option>
                     </select>
                 </div>
 
                 <div id="AddressForm" class="form-group">
-                    <label for="Address1">Address Line 1</label>
-                    <input name="address1" type="text" class="form-control" id="Address1" placeholder="Enter First Line Address">
+                    <label class="formlabel" for="Address1">Address Line 1 *</label>
+                    <input name="firstLineAddress" type="text" class="form-control" id="firstLineAddress" placeholder="Enter First Line Address" autocomplete="off">
 
-                    <label for="Address2">Address Line 2</label>
-                    <input name="address2" type="text" class="form-control" id="Address2" placeholder="Enter Second Line Address">
+                    <label class="formlabel" for="Address2">Address Line 2</label>
+                    <input name="secondLineAddress" type="text" class="form-control" id="secondLineAddress" placeholder="Enter Second Line Address" autocomplete="off">
 
-                    <label for="PostCode">Postcode</label>
-                    <input name="postCode" type="text" class="form-control" id="Postcode" placeholder="Enter PostCode">
+                    <label class="formlabel" for="PostCode">Postcode *</label>
+                    <input name="postCode" type="text" class="form-control" id="Postcode" placeholder="Enter PostCode" oninput="this.value = this.value.toUpperCase()" autocomplete="off">
                 </div>
 
                 <button type="submit" class="btn Submissionbtn">Submit</button>
             </form>
 
         </div>
-  
+        <div class="tblCard card">
+            @*<div class="card tblCard">
+                <p>Hi</p>
+            </div>
+            <div class="card tblCard">
+                <p>Hi</p>
+            </div>*@
+            <button class="accordion">Section 1</button>
+            <div class="panel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+
+            <button class="accordion">Section 2</button>
+            <div class="panel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+
+            <button class="accordion">Section 3</button>
+            <div class="panel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+
+            <script>
+                var acc = document.getElementsByClassName("accordion");
+                var i;
+
+                for (i = 0; i < acc.length; i++) {
+                    acc[i].addEventListener("click", function () {
+                        this.classList.toggle("active");
+                        var panel = this.nextElementSibling;
+                        if (panel.style.display === "block") {
+                            panel.style.display = "none";
+                        } else {
+                            panel.style.display = "block";
+                        }
+                    });
+                }
+            </script>
+        </div>
     </div>

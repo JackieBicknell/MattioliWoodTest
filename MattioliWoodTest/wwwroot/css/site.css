@@ -35,13 +35,20 @@ a {
 
 .card {
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    height: 755px;
 }
 
+#viewUsersCard {
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    height: 750px;
+    margin:20px;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 @media (min-width: 768px) {
   html {
@@ -75,7 +82,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background: antiquewhite;
+    background: lavender;
 }
 .footer {
   position: absolute;
@@ -83,11 +90,12 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+  background: white;
 }
 
 .formheader {
     background-color: #fff;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 4px solid #f0f0f0;
     padding: 20px 40px 20px 0px;
     font-size: 24px;
     font-family: cursive;
@@ -105,22 +113,6 @@ body {
     text-align: left;
 }
 
-.fa-user-circle {
-    font-size: 20px;
-    color: darkred;
-    position: absolute;
-    left: 510px;
-}
-
-#forenameIcon {
-    top: 150px;
-}
-
-#surnameCheckIcon {
-    top: 240px;
-}
-
-
 #AddressForm {
     visibility: hidden;
     display: none;
@@ -129,20 +121,59 @@ body {
 .Submissionbtn{
     position: absolute;
     left: 150px;
-    margin: 20px;
+    margin: 10px;
     background-color: brown;
     color: white;
-}
-
-.card {
-    height: auto;
-    display: flex;
 }
 
 .imgLogo {
     position: absolute;
     background-color: red;
     width: 500px;
-    height: 400px;
+    height: 550px;
     margin: 10px;
+    border-radius: 10px;
+}
+
+.existsMsg {
+    text-align: left;
+    color: red;
+    font-family: sans-serif;
+}
+
+.formlabel {
+    font-weight: bold;
+}
+
+
+.tblCard {
+    margin: 20px 0px;
+    overflow: scroll;
+    height: 500px;
+}
+
+
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+    .active, .accordion:hover {
+        background-color: darkred;
+        color: white
+    }
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
 }
