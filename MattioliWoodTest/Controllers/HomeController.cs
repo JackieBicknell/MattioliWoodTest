@@ -86,7 +86,6 @@ namespace MattioliWoodTest.Controllers
         {
             string fullname = forename + " " + surname;
             ViewBag.UserExistsMsg = $"The details entered for '{fullname}' already exists";
-
             homeViewModel.UserExistMsg = $"The details entered for '{fullname}' already exists";
   
         }
