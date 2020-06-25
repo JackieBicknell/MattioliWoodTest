@@ -17,10 +17,7 @@ namespace MattioliWoodTest.Controllers
 
         private UserLogic _userLogic = new UserLogic();
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
+        public HomeViewModel homeViewModel = new HomeViewModel();
 
         public HomeController()
         {
@@ -28,15 +25,37 @@ namespace MattioliWoodTest.Controllers
 
         public IActionResult Index()
         {
-            List<Staff> staffList = _userLogic.GetAllStaffRecords();
-            return View();
+            GetAllStaffRecords(homeViewModel);
+            GetAllClientRecords(homeViewModel);
+            return View(homeViewModel);
         }
-        public IActionResult SaveUser(string forename, string surname, DateTime dateOfBirth, string userType, string firstLineAddress, string secondLineAddress, string postcode)
+
+        private List<Staff> GetAllStaffRecords(HomeViewModel homeViewModel)
         {
+            List<Staff> staffList = _userLogic.GetAllStaffRecords();
+            if(staffList.Count != 0)
+            {
+                homeViewModel.StaffList = staffList;
+            }
+            return staffList;
+        }
+
+        private List<Client> GetAllClientRecords(HomeViewModel homeViewModel)
+        {
+            List<Client> clientList = _userLogic.GetAllClientRecords();
+            if (clientList.Count != 0)
+            {
+                homeViewModel.clientList = clientList;
+            }
+            return clientList ;
+        }
+
+        public IActionResult SaveUser(string forename, string surname, DateTime dateOfBirth, string userType, string firstLineAddress, string secondLineAddress, string postcode)
+        { 
             HomeViewModel homeViewModel = new HomeViewModel();
             if (CheckInputDoesNotAlreadyExist(forename, surname, userType))
             {
-                return UserExistsMessageToView(forename, surname, homeViewModel);
+                 UserExistsMessageToView(forename, surname, homeViewModel);
             }
             else
             {
@@ -54,38 +73,40 @@ namespace MattioliWoodTest.Controllers
                         return View("Index", homeViewModel);
                         throw new NotImplementedException();
                 }
-                
+                UserSuccessfullySavedInDBMsg(forename, surname, homeViewModel);
+
             }
-            return UserSuccessfullySavedInDBMsg(forename, surname, homeViewModel);
+           
+            GetAllStaffRecords(homeViewModel);
+            GetAllClientRecords(homeViewModel);
+            return View("Index", homeViewModel);
         }
 
-
-        private IActionResult UserExistsMessageToView(string forename, string surname, HomeViewModel homeViewModel)
+        private void UserExistsMessageToView(string forename, string surname, HomeViewModel homeViewModel)
         {
             string fullname = forename + " " + surname;
             ViewBag.UserExistsMsg = $"The details entered for '{fullname}' already exists";
-            return View("Index", homeViewModel);
+
+            homeViewModel.UserExistMsg = $"The details entered for '{fullname}' already exists";
+  
         }
 
-        private IActionResult UserSuccessfullySavedInDBMsg(string forename, string surname, HomeViewModel homeViewModel)
+        private void UserSuccessfullySavedInDBMsg(string forename, string surname, HomeViewModel homeViewModel)
         {
             string fullname = forename + " " + surname;
             ViewBag.SuccessfullyAddedMsg = $"{fullname} has been successfully added";
-            return View("Index", homeViewModel);
         }
 
-        public string SaveStaff(string forename, string surname, DateTime dateOfBirth)
+        public void SaveStaff(string forename, string surname, DateTime dateOfBirth)
         {
             Staff newStaff = CreateStaffObj(forename, surname, dateOfBirth);
             _userLogic.AddStaffToDataBase(newStaff);
-            return "staff has been saved in database";
         }
 
-        public string SaveClient(string forename, string surname, DateTime dateOfBirth, string firstLineAddress, string secondLineAddress, string postcode)
+        public void SaveClient(string forename, string surname, DateTime dateOfBirth, string firstLineAddress, string secondLineAddress, string postcode)
         {
             Client newClient = CreateClientObj(forename, surname, dateOfBirth, firstLineAddress, secondLineAddress, postcode);
             _userLogic.AddClientToDataBase(newClient);
-            return "staff has been saved in database";
         }
 
         public bool CheckInputDoesNotAlreadyExist(string forename, string surname, string userType)

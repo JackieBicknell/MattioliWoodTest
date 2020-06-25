@@ -20,19 +20,21 @@ namespace DAL.Functions
 
         public List<Staff> GetAllStaffRecords()
         {
+            sqlConn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\JackieB\source\repos\MattioliWoodTest\DAL\MattioliWoodDB.mdf;Integrated Security=True;";
             List<Staff> staffList = new List<Staff>();
             string sqlQuery = "  SELECT * FROM Staff";
             sqlConn.Open();
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConn);
             SqlDataReader reader = sqlCommand.ExecuteReader();
-            Staff thisStaff = new Staff();
-            if (reader.Read())
+            while (reader.Read())
             {
+                Staff thisStaff = new Staff();
+                thisStaff.Id = (int)reader["Id"];
                 thisStaff.Forename = reader["Forename"] as string;
                 thisStaff.Surname = reader["Surname"] as string;
                 thisStaff.DateOfBirth = (DateTime)reader["DateOfBirth"];
+                staffList.Add(thisStaff);
             }
-            staffList.Add(thisStaff);
             sqlConn.Close();
             return staffList;
         }
@@ -128,6 +130,7 @@ namespace DAL.Functions
             {
                 doesUserExist = true;
             }
+            sqlConn.Close();
             return doesUserExist;
         }
 
@@ -147,6 +150,29 @@ namespace DAL.Functions
             }
             sqlConn.Close();
             return doesUserExist;
+        }
+
+        public List<Client> GetAllClientRecords()
+        {
+            List<Client> clientList = new List<Client>();
+            string sqlQuery = "SELECT * FROM Clients";
+            sqlConn.Open();
+            SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConn);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                Client thisClient = new Client();
+                thisClient.Id = (int)reader["Id"];
+                thisClient.Forename = reader["Forename"] as string;
+                thisClient.Surname = reader["Surname"] as string;
+                thisClient.DateOfBirth = (DateTime)reader["DateOfBirth"];
+                thisClient.AddressLine1 = reader["FirstLineAddress"] as string;
+                thisClient.AddressLine2 = reader["SecondLineAddress"] as string;
+                thisClient.PostCode = reader["Postcode"] as string;
+                clientList.Add(thisClient);
+            }
+            sqlConn.Close();
+            return clientList;
         }
     }
 

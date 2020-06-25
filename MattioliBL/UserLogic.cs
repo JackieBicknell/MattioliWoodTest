@@ -18,6 +18,13 @@ namespace MattioliBL
             return allStaffRecord;
         }
 
+        public List<Client> GetAllClientRecords()
+        {
+            List<Client> allClientRecord = new List<Client>();
+            allClientRecord = _staffFunction.GetAllClientRecords();
+            return allClientRecord;
+        }
+
 
         public string AddStaffToDataBase(Staff newStaff)
         {

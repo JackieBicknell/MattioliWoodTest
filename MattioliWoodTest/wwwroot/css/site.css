@@ -36,7 +36,8 @@ a {
 .card {
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-    height: 755px;
+    margin: 10px;
+    width: 50%;
 }
 
 #viewUsersCard {
@@ -100,6 +101,7 @@ body {
     font-size: 24px;
     font-family: cursive;
     text-align: left;
+    margin-bottom: 20px;
 }
 
 .form {
@@ -129,10 +131,10 @@ body {
 .imgLogo {
     position: absolute;
     background-color: red;
-    width: 500px;
-    height: 550px;
-    margin: 10px;
+    width: 450px;
+    margin: 20px;
     border-radius: 10px;
+    right: 0;
 }
 
 .existsMsg {
@@ -176,4 +178,14 @@ body {
     display: none;
     background-color: white;
     overflow: hidden;
+}
+
+.cardForm {
+    width:40%;
+}
+
+.cardTable {
+    overflow: scroll;
+    height: 1000px;
+    width: 60%;
 }

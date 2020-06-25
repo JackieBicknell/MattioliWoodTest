@@ -14,5 +14,6 @@ namespace DAL
         string AddClientToDataBase(Client newClient);
 
         bool CheckUserExistsInDB(string forename, string surname, string userType);
+        List<Client> GetAllClientRecords();
     }
 }
