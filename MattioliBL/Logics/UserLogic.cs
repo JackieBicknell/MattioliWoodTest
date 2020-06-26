@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Entities;
+using MattioliBL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace MattioliBL
 {
 
-    public class UserLogic 
+    public class UserLogic : IUserLogic 
     {
         private IUserFunction _staffFunction = new DAL.Functions.UserFunctions();
 
@@ -25,7 +26,6 @@ namespace MattioliBL
             allClientRecord = _staffFunction.GetAllClientRecords();
             return allClientRecord;
         }
-
 
         public string AddStaffToDataBase(Staff newStaff)
         {
