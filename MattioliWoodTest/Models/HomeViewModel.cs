@@ -19,5 +19,6 @@ namespace MattioliWoodTest.Models
 
 
         public List<Client> clientList { get; set; }
+
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -15,5 +16,6 @@ namespace DAL
 
         bool CheckUserExistsInDB(string forename, string surname, string userType);
         List<Client> GetAllClientRecords();
+        Task DeleteUser(int id, string userType);
     }
 }

@@ -1,20 +1,17 @@
 using DAL.Functions;
 using Entities;
 using MattioliWoodTest.Controllers;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NUnit.Framework;
 using System.Data;
-using System.Data.Common;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 
 namespace MWUnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class HomeControllerUnitTests
     {
         [SetUp]
         public void Setup()
@@ -26,7 +23,7 @@ namespace MWUnitTests
         public void CheckForAlreadyExistingStaffReturnsTrue()
         {
             HomeController mockedHomeController = new HomeController();
-            var result = mockedHomeController.CheckInputDoesNotAlreadyExist("jackie", "bicknell", "Staff");
+            var result = mockedHomeController.CheckInputDoesNotAlreadyExist("Molly", "Mills", "Staff");
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(result, true);
         }
 
@@ -34,7 +31,7 @@ namespace MWUnitTests
         public void CheckForAlreadyExistingClientReturnsTrue()
         {
             HomeController mockedHomeController = new HomeController();
-            var result = mockedHomeController.CheckInputDoesNotAlreadyExist("Leanne", "bob", "Client");
+            var result = mockedHomeController.CheckInputDoesNotAlreadyExist("Sally", "Hanson", "Client");
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(result, true);
         }
 

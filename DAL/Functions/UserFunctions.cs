@@ -1,10 +1,9 @@
 ﻿using Entities;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+using System.Configuration;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace DAL.Functions
@@ -134,7 +133,6 @@ namespace DAL.Functions
             return doesUserExist;
         }
 
-
         public bool CheckClientExists(string forename, string surname)
         {
             bool doesUserExist = false;
@@ -173,6 +171,42 @@ namespace DAL.Functions
             }
             sqlConn.Close();
             return clientList;
+        }
+
+        public async Task DeleteUser(int id, string userType)
+        {
+           
+            switch(userType)
+            {
+                case "Staff":
+                    using (var conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\JackieB\source\repos\MattioliWoodTest\DAL\MattioliWoodDB.mdf;Integrated Security=True;"))
+                    using (var command = new SqlCommand("SPROCDeleteRecordFromStaff", conn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                        
+                    })
+                    {
+                        command.Parameters.AddWithValue("@Id", id);
+                        conn.Open();
+                       await command.ExecuteNonQueryAsync();
+                    }
+                    sqlConn.Close();
+                    break;
+                case "Client":
+                    using (var conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\JackieB\source\repos\MattioliWoodTest\DAL\MattioliWoodDB.mdf;Integrated Security=True;"))
+                    using (var command = new SqlCommand("SPROCDeleteRecordFromClient", conn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+
+                    })
+                    {
+                        command.Parameters.AddWithValue("@Id", id);
+                        conn.Open();
+                        await command.ExecuteNonQueryAsync();
+                    }
+                    sqlConn.Close();
+                    break;
+            }
         }
     }
 

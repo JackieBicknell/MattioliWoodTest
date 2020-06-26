@@ -13,7 +13,7 @@ namespace MattioliWoodTest.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
 
         private UserLogic _userLogic = new UserLogic();
 
@@ -30,6 +30,14 @@ namespace MattioliWoodTest.Controllers
             return View(homeViewModel);
         }
 
+        public async Task<IActionResult> DeleteUser(int id, string userType)
+        {
+            await _userLogic.DeleteUser(id, userType);
+            GetAllStaffRecords(homeViewModel);
+            GetAllClientRecords(homeViewModel);
+            ViewBag.UserDeletedMsg = "Record Successfully deleted!";
+            return View("Index", homeViewModel);
+        }
         private List<Staff> GetAllStaffRecords(HomeViewModel homeViewModel)
         {
             List<Staff> staffList = _userLogic.GetAllStaffRecords();

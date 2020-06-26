@@ -3,11 +3,12 @@ using Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MattioliBL
 {
 
-    public class UserLogic
+    public class UserLogic 
     {
         private IUserFunction _staffFunction = new DAL.Functions.UserFunctions();
 
@@ -43,6 +44,11 @@ namespace MattioliBL
         {
             bool doesUserExist = _staffFunction.CheckUserExistsInDB(forename, surname, userType);
             return doesUserExist;
+        }
+
+        public async Task DeleteUser(int id, string userType)
+        {
+           await _staffFunction.DeleteUser(id, userType);
         }
     }
 }
